@@ -26,7 +26,8 @@ class LightDarkReward:
             self.n_s = self.n_p
             self.s_indicies = self.p_indicies
         elif sith_simplification is None:
-            self.n_s = self.n_p**2
+            sith_simplification = partial_simplification**2
+            self.n_s = int(self.N * sith_simplification)
             self.s_indicies = self.belief.size_to_indicies(self.n_s)
         else:
             self.n_s = int(self.N * sith_simplification)

@@ -42,7 +42,7 @@ experiment_sets:
     common_parameters:
       # sith and partial have same comlexity
       n_particles: 1000
-      sith_simplification: None
+      sith_simplification: null
 
     runs:
       - name: run1
