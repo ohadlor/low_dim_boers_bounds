@@ -1,0 +1,55 @@
+global_common_parameters:
+  n_steps: 30
+  iterations: 10
+  resample: True
+
+experiment_sets:
+  set1:
+    common_parameters:
+      partial_simplification: 0.5
+      sith_simplification: 0.5
+
+    runs:
+      - name: run1
+        n_particles: 500
+      - name: run2
+        n_particles: 1000
+      - name: run3
+        n_particles: 2000
+
+  set2:
+    common_parameters:
+      n_particles: 1000
+    # sith and partial use same particles
+    runs:
+      - name: run1
+        partial_simplification: 0.1
+        sith_simplification: 0.1
+
+      - name: run2
+        partial_simplification: 0.4
+        sith_simplification: 0.4
+
+      - name: run2
+        partial_simplification: 0.7
+        sith_simplification: 0.7
+
+      - name: run2
+        partial_simplification: 0.9
+        sith_simplification: 0.9
+
+  set3:
+    common_parameters:
+      # sith and partial have same comlexity
+      n_particles: 1000
+      sith_simplification: None
+
+    runs:
+      - name: run1
+        partial_simplification: 0.3
+
+      - name: run2
+        partial_simplification: 0.5
+
+      - name: run3
+        partial_simplification: 0.7
