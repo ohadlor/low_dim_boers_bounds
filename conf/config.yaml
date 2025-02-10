@@ -1,0 +1,5 @@
+defaults:
+  - process/default_config
+  - process/config
+  - process/trial_config
+  - post_process/default_config

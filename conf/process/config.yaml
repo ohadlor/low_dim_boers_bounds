@@ -1,0 +1,26 @@
+simulation_params:
+  iterations: 3
+
+landmarks:
+  prior_landmarks:
+    - [5.0, 2.0]
+    - [10.0, -2.0]
+    - [15.0, 1.0]
+    - [10.0, 2.0]
+  landmarks_per_bunch: 5
+
+noise:
+  obs_std: 0.2
+  obs_range: 1.5
+  detection_range: 1.5
+  action_std: 0.3
+  initial_std: 2.0
+
+planning:
+  planning_horizon: 3
+  state_samples: 1000
+  kappa: [0, 0.3, 0.6, 0.9, 1]
+  information_weight: 0.7
+
+stopping:
+  stopping_condition: "max_steps"

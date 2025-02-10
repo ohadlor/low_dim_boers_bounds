@@ -7,10 +7,10 @@
         
 
         {
-            "name": "Python: Light Dark Main",
+            "name": "Python: Main",
             "type": "debugpy",
             "request": "launch",
-            "program": "main.py",
+            "program": "processes.py",
             "console": "integratedTerminal",
             "justMyCode": false
         }
