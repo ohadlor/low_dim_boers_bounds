@@ -171,6 +171,7 @@ class BeliefTree:
                 big_betas = betas[np.sum(betas, axis=1) > 1]
                 big_weights = weights[np.sum(betas, axis=1) > 1]
 
+            # sort by weight from largest to smallest
             indicies = np.flip(np.argsort(big_weights))
             weights = np.concatenate((small_weights, big_weights[indicies]))
             betas = np.concatenate(

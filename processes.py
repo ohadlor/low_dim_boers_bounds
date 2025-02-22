@@ -210,5 +210,5 @@ def post_proccess(cfg: DictConfig) -> None:
 
 
 if __name__ == "__main__":
-    simulator()
-    # post_proccess()
+    # simulator()
+    post_proccess()

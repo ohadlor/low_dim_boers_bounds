@@ -111,15 +111,16 @@ def plot_q_function(
 
     # iterate over simplification factors
     for i, (simplification_factor, bounds) in enumerate(q_function_bounds.items()):
-        # iterate over actions
-        for j in range(len(bounds)):
-            plt.annotate(
-                "",
-                xy=(x_range[j], bounds[j][1]),
-                xytext=(x_range[j], bounds[j][0]),
-                arrowprops=dict(arrowstyle="<->", color=colors[i], lw=1.5),
-            )
-        plt.plot([], [], color=colors[i], label=f"Simplification Factor: {simplification_factor}")
+        plt.errorbar(
+            x_range,
+            q_function,
+            yerr=np.abs(bounds - q_function.reshape(-1, 1)).T,
+            linestyle="",
+            capsize=3,
+            color=colors[i],
+            alpha=0.5,
+            label=f"Simplification Factor: {simplification_factor}",
+        )
     plt.plot(x_range, q_function, "bs", markersize=5)
 
     plt.xlabel("Action")
@@ -143,15 +144,14 @@ def plot_v_function(value_functions: np.ndarray, value_function_bounds: dict[flo
 
     # iterate over simplification factors
     for i, (simplification_factor, bounds) in enumerate(value_function_bounds.items()):
-        # iterate over time steps
-        for j in range(len(bounds)):
-            plt.annotate(
-                "",
-                xy=(x_range[j], bounds[j][1]),
-                xytext=(x_range[j], bounds[j][0]),
-                arrowprops=dict(arrowstyle="<->", color=colors[i], lw=1.5),
-            )
-        plt.plot([], [], color=colors[i], label=f"Simplification Factor: {simplification_factor}")
+        plt.fill_between(
+            x_range,
+            y1=bounds[:, 0],
+            y2=bounds[:, 1],
+            alpha=0.3,
+            color=colors[i],
+            label=f"Simplification Factor: {simplification_factor}",
+        )
     plt.plot(x_range, value_functions, "bs", markersize=5)
 
     plt.xlabel("Time Step")
@@ -167,10 +167,17 @@ def plot_speed_up(results: ResultsData, dir: str):
     mean_speed_up = results.speed_up[0]
     std_speed_up = results.speed_up[1]
     # simplification_factors = results.simplification
-    simplification = results.nodes_eliminated / results.n_da_nodes
     plt.figure()
-    plt.errorbar(simplification, mean_speed_up, yerr=std_speed_up, fmt="bs", markersize=5, capsize=3)
-    plt.plot(simplification, mean_speed_up, "b-", alpha=0.7)
+    plt.errorbar(
+        results.node_elimination_rate[0],
+        mean_speed_up,
+        xerr=results.node_elimination_rate[1],
+        yerr=std_speed_up,
+        fmt="bs",
+        markersize=5,
+        capsize=3,
+    )
+    plt.plot(results.node_elimination_rate[0], mean_speed_up, "b-", alpha=0.7)
     plt.xlabel("Simplification Factor")
     plt.ylabel("Speed Up")
     plt.title("Speed Up vs. Simplification Factor")

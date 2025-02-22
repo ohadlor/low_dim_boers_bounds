@@ -112,17 +112,17 @@ def process_data(total_data: list[TimeStepRewardData]) -> ResultsData:
         for j, data in enumerate(iter_data.values()):
             nodes_counter = data.nodes_counter
             times[i, j] = data.time
-            factors_removed[i, j] = nodes_counter.factors_eliminated
+            factors_removed[i, j] = nodes_counter.factors_removed
             nodes_removed[i, j] = nodes_counter.nodes_removed
             node_elimination_rates[i, j] = nodes_counter.node_elimination_rate
             factor_elimination_rates[i, j] = nodes_counter.factor_elimination_rate
 
             if i == 0:
-                factors[j] = data.nodes_counter.factors_eliminated
-                n_da[j] = data.n_da_nodes
+                factors[j] = data.nodes_counter.factors_removed
+                n_da[j] = data.nodes_counter.da_nodes
 
     time_data = (times.mean(axis=0), times.std(axis=0))
-    speed_up = times[:, 0] / times
+    speed_up = times[:, 0].reshape(-1, 1) / times
     speed_up = (speed_up.mean(axis=0), speed_up.std(axis=0))
     factors_removed = (factors_removed.mean(axis=0), factors_removed.std(axis=0))
     nodes_removed = (nodes_removed.mean(axis=0), nodes_removed.std(axis=0))

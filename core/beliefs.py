@@ -82,6 +82,9 @@ class ParticleBelief:
         observation_noise : PDF
             Probability density function representing the observation noise.
         """
+        # TODO: Resample for the updated belief, should not affect reward, check
+        if self.n_particles != self.full_n:
+            self.resample()
         for landmark, measurement in zip(landmarks, measurements):
             noise = measurement - (self.particles - landmark.loc)
             likelihood = observation_noise.likelihood(noise)

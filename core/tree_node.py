@@ -290,8 +290,6 @@ class DANode(TNode):
 
     def create_child_node(self, action: np.ndarray, noise: PDF) -> ActionNode:
         new_belief = self.belief.copy()
-        if new_belief.n_particles != new_belief.full_n:
-            new_belief.resample()
         new_belief.prediction_step(action, noise)
 
         child = ActionNode(new_belief)
